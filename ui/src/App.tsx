@@ -1,19 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import { postToApi } from "./util/api";
 
 function App () {
 
-	interface User {
-		hej: string;
-	}
+
 
 	return (
 		<div className="App">
-			<div>
-
-			</div>
 		</div>);
 
 }
 
-export default App;
+export default App;;

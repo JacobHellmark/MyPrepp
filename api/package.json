@@ -2,15 +2,20 @@
 	"name": "prepapp",
 	"version": "1.0.0",
 	"description": "",
-	"main": "server.js",
+	"main": "src/server.ts",
 	"scripts": {
-		"start": "nodemon server.js",
+		"start": "node ./build/server.js",
+		"dev": "nodemon ./src/server.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"express": "^4.18.1",
-		"nodemon": "^2.0.20"
+		"@types/express": "^4.17.14",
+		"@types/node": "^18.11.9",
+		"cors": "^2.8.5",
+		"express": "^4.18.2",
+		"nodemon": "^2.0.20",
+		"ts-node": "^10.9.1"
 	}
 }
