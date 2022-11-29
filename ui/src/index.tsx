@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './style/index.css';
 import App from './App';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from './Login/Login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,14 +11,17 @@ const root = ReactDOM.createRoot(
 
 fetch("/config.json", {
   method: "GET"
-}).then(r => r.json()).then(data => localStorage.setItem("apiUrl", data.apiUrl))
+}).then(r => r.json()).then(data => localStorage.setItem("apiUrl", data.apiUrl));
 
 root.render(
-    <>
-      <App />
-    </>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={ <App /> }></Route>
+      <Route path="/Login" element={ <Login /> }></Route>
+    </Routes>
+  </BrowserRouter>
 
 );
- 
+
 
 

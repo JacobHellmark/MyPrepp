@@ -1,5 +1,7 @@
 import express, {Request, Response} from "express"
-var cors = require("cors")
+const client = require("./configdb")
+
+var cors = require("cors");
 const app = express();
 
 app.use(express.json());
@@ -17,4 +19,16 @@ app.post("/test",(req: Request, res: Response): void => {
 	res.json({ status: "OK" });
 });
 
-app.listen(process.env.PORT || port);
+
+const run = async (): Promise<void> => {
+	await client.connect()
+	console.log("connected to db")
+	const dbName: string = "preppAppdb"
+	const db = client.db("preppAppdb")
+	app.listen(process.env.PORT || port);
+	const collection = db.collection('documents');
+	console.log(collection)
+
+}
+
+run()
