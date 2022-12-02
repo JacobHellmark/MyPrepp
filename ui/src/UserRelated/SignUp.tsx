@@ -4,13 +4,45 @@ import Button from '@mui/material/Button';
 import '../style/SignUp.css';
 import '../style/materialChange.css';
 import { useNavigate } from 'react-router-dom';
+import { postToApi } from '../util/api';
 
 function SignUp () {
     const navigate = useNavigate();
 
 
+    const passwordIsSafe = (password: string): boolean => {
+        return true;
+    };
+
+    const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
+        e.preventDefault();
+        const email = (document.getElementById("email") as HTMLInputElement).value;
+        const password1 = (document.getElementById("password1") as HTMLInputElement).value;
+        const password2 = (document.getElementById("password2") as HTMLInputElement).value;
+
+
+
+        if (password1 === password2 && passwordIsSafe(password1)) {
+            postToApi("/user/signup", {
+                email: email,
+                password: password1
+            }).then((resp) => {
+                if (resp.status === 200) {
+                    localStorage.setItem("jwt", "token");
+                    navigate("/");
+                }
+
+            }
+            );
+        } else {
+            console.log("passwords are not same");
+        }
+
+
+    };
+
     return (
-        <div className="SignUp">
+        <div className="SignUp" onSubmit={ (e: React.FormEvent<EventTarget>) => handleSubmit(e) } >
             <form className={ `Login` }>
                 <div className='textInps'>
                     <TextField
@@ -27,7 +59,7 @@ function SignUp () {
                     <TextField
                         required
                         fullWidth
-                        id="password"
+                        id="password1"
                         label="Password"
                         type="password"
                         variant="standard"
